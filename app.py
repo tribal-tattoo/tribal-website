@@ -8,6 +8,7 @@ from firebase_admin import credentials,firestore
 from flask_mail import Mail,Message
 import time
 from datetime import date
+from uuid import uuid4
 
 # <script async>(function(w, d) { w.CollectId = "5d33527bbbe93a2116d19d38"; var h = d.head || d.getElementsByTagName("head")[0]; var s = d.createElement("script"); s.setAttribute("type", "text/javascript"); s.setAttribute("src", "https://collectcdn.com/launcher.js"); h.appendChild(s); })(window, document);</script>
 
@@ -53,7 +54,7 @@ def home() :
 		time = request.form['time']
 		email = request.form['email']
 		phNum = request.form['phNum']
-		doc_id = email + " " + date
+		doc_id = str(uuid4()).replace('-','')
 		doc_ref = db.collection(u'appointments').document(doc_id)
 		doc_ref.set({
 			u'name':name,
@@ -61,7 +62,7 @@ def home() :
 			u'date':date,
 			u'artist':artist,
 			u'time':time,
-			u'email':email
+			u'email':email if email else ""
 		})
 		msg = Message('Booking Confirmation', sender = 'tribaltattoont@gmail.com', recipients = [email])
 		msg.body = "Your booking has been registered. We will contact you shortly"
@@ -92,7 +93,7 @@ def services() :
 		time = request.form['time']
 		email = request.form['email']
 		phNum = request.form['phNum']
-		doc_id = email + " " + date
+		doc_id = str(uuid4()).replace('-','')
 		doc_ref = db.collection(u'appointments').document(doc_id)
 		doc_ref.set({
 			u'name':name,
@@ -128,7 +129,7 @@ def booking():
 		time = request.form['time']
 		email = request.form['email'] if request.form['email'] else ""
 		phNum = request.form['phNum']
-		doc_id = phNum + " " + date
+		doc_id = str(uuid4()).replace('-','')
 		doc_ref = db.collection(u'appointments').document(doc_id)
 		
 		doc_ref.set({
@@ -137,7 +138,7 @@ def booking():
 			u'date':date,
 			u'artist':artist,
 			u'time':time,
-			u'email':email
+			u'email':email if email else ""
 		})
 		if email != "":
 			msg = Message('Booking Confirmation', sender = 'tribalwebsitemys@gmail.com', recipients = [email])
@@ -184,7 +185,7 @@ def consult():
 		doc_ref = db.collection(u'consultations').document(fullName + "  " + curDate.strftime("%Y-%m-%d"))
 		doc_ref.set({
 			u'name':fullName,
-			u'email':email,
+			u'email':email if email else "",
 			u'phNum':phNum
 		})
 		message = "Information Submitted, we will contact you shortly"
@@ -242,7 +243,7 @@ def register(event = None) :
 		doc_ref.set({
 			u'name':name,
 			u'contact':phNum,
-			u'email':email,
+			u'email':email if email else "",
 			u'dob':dob,
 			u'address':address
 		})
