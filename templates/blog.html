@@ -116,40 +116,28 @@
         <div class="blog-area bg-1">
             <div class="container">
                 <div class="row">
-
-
-
-
                     {% for event in blogs %}
-                    
-                    <div class="col-xs-12 col-md-4 col-sm-6">
-                        <div class="blog-wrap">
-                            <a href="/blogDetails/{{event}}">
-                            <div class="blog-img">
-                                <img src="{{blogs[event]['image']}}" alt="">
-                            </div>
-                            <div class="blog-content">
-                                <ul class="blog-meta">
-                                    <li><a href="#"><i class="fa fa-calendar-o"></i> {{blogs[event]['date']}}</a></li>
-                                  
-                                </ul>
-                                <h3>{{blogs[event]['title']}}</h3>
-                                <p>{{blogs[event]['content'][0:150]}}...</p>
-                                <i class="fa fa-long-arrow-right"></i>
-                           
+                        <a href="/blogDetails/{{event}}">
+                            <div class="col-xs-12 col-md-4 col-sm-6">
+                                
+                                <div class="blog-wrap">
+                                        <div class="blog-img">
+                                            <img src="{{blogs[event]['image']}}" alt="">
+                                        </div>
+                                        <div class="blog-content">
+                                            <ul class="blog-meta">
+                                                <li><i class="fa fa-calendar-o"></i> {{blogs[event]['date']}}</li>
+                                            </ul>
+                                            <h3>{{blogs[event]['title']}}</h3>
+                                            <p>{{blogs[event]['content'][0:150]}}...</p>
+                                            <i class="fa fa-long-arrow-right"></i>
+                                    
+                                        </div>
+                                    
+                                </div>
                             </div>
                         </a>
-                        </div>
-                    </div>
-               
-                {% endfor %}
-                    
-
-
-
-
-
-                    
+                    {% endfor %}
                 </div>
                 <div class="breadcumb-wrap text-center"><h3>{{noPost}}</h3></div>
             </div>
